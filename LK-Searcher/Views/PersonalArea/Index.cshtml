@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <style>
+        /* Пример стиля для div с обводкой */
+        body {
+            background-color: #F5F5F5;
+            font-family: "Montserrat",sans-serif;
+        }
+
+        div {
+            //border: 2px solid black; /* Толщина, стиль и цвет границы */
+            padding: 20px; /* Отступ внутри div для наглядности */
+        }
+
+        .outer-div {
+            display: flex;
+            justify-content: space-between;
+            height: 100%;
+            width: 50%;
+        }
+
+        .inner-div {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 10px;
+            justify-content: space-between;
+        }
+
+        input[type = "file"]::-webkit-file-upload-button {
+            color: #FFFFFF;
+            background-color: #28A5FF;
+            border: none;
+            padding: 10px;
+            border-radius: 25px;
+            width: 70%;
+        }
+
+        input[type = "file"] {
+            color: #FFFFFF;
+        }
+
+        .download {
+            color: #FFFFFF;
+            width: 50%;
+            border-radius: 25px;
+            margin-left: 15px;
+            margin-top: 10%;
+            border: none;
+            background-color: #00AD45;
+        }
+
+        .shadow {
+            background-color: #FFFFFF;
+            border-radius: 10px; /* Скругленные углы */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Тень с параметрами */
+        }
+
+        .right-button {
+            font-weight: 600;
+            font-size: 20px;
+            margin: 10px;
+            padding: 5px 20px;
+            border: none;
+            height: 100%;
+            margin: 0px;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 25px;
+        }
+
+        .right form {
+            height: 22%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-div">
+        <div class="inner-div shadow">
+            <div>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <label for="fileUpload">Загрузить данные из Scopus</label>
+                    <input type="file" id="fileUpload" name="fileUpload">
+                </form>
+
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <label for="fileUpload">Загрузить данные из WOS</label>
+                    <input type="file" id="fileUpload" name="fileUpload">
+                </form>
+                <button class="download" type="submit">Загрузить</button>
+            </div>
+        </div>
+        <div class="inner-div right" style="padding: 0px;">
+            <form asp-controller="AllPublish" asp-action="Index" method="post">
+                <a href="/AllPublish" target="_blank">Личный кабинет</a>
+            </form>
+            <form asp-controller="PersonalArea" asp-action="ShowAllPublish" method="post">
+                <button class="right-button shadow">Подтвердить публикацию</button>
+            </form>
+            <form asp-controller="PersonalArea" asp-action="ShowAllPublish" method="post">
+                <button class="right-button shadow">Идентификаторы авторов Московского Политеха</button>
+            </form>
+            <form asp-controller="PersonalArea" asp-action="ShowAllPublish" method="post">
+                <button class="right-button shadow">Заместители декана по научной работе</button>
+            </form>
+        </div>
+    </div>
+    <script src="./js/site.js"></script>
+</body>
+</html>

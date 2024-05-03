@@ -1,0 +1,157 @@
+﻿@using LK_Searcher.EntityModels;
+@model IEnumerable<Author>;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание новой записи</title>
+    <style>
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+            button[type="submit"]:hover,
+            button[type="button"]:hover {
+                background-color: #555;
+            }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="publishForm" asp-controller="PersonalArea" asp-action="AddPublish" method="post onsubmit="validateForm()">
+        <h1>Создание новой записи</h1>
+        <div>
+            <label for="publishTitle">Название публикации:</label>
+            <input type="text" id="publishTitle" name="PublishTitle" required>
+        </div>
+        <div>
+            <label for="sourceTitle">Название источника:</label>
+            <input type="text" id="sourceTitle" name="SourceTitle" required>
+        </div>
+        <div>
+            <label for="documentType">Тип документа:</label>
+            <input type="text" id="documentType" name="DocumentType" required>
+        </div>
+        <div>
+            <label for="publishYear">Год публикации:</label>
+            <input type="number" id="publishYear" name="PublishYear" required>
+        </div>
+        <div>
+            <label for="authors">Авторы:</label>
+            <select id="authors" name="Authors" multiple>
+                @foreach (var author in Model)
+                {
+                    <option value="@author.Id">@author.LastName @author.FirstName Факультет: @author.Faculty Направление: @author.Department</option>
+                }
+            </select>
+            <button type="button" onclick="showNewAuthorForm()">Добавить нового автора</button>
+        </div>
+        <button type="submit">Создать запись</button>
+    </form>
+
+    <form id="authorForm" class="hidden" asp-action="AddAuthor" asp-controller="PersonalArea" method="post">
+        <h1>Добавление нового автора</h1>
+        <div>
+            <label for="firstName">Имя:</label>
+            <input type="text" id="firstName" name="FirstName" required>
+        </div>
+        <div>
+            <label for="lastName">Фамилия:</label>
+            <input type="text" id="lastName" name="LastName" required>
+        </div>
+        <div>
+            <label for="fatherName">Отчество:</label>
+            <input type="text" id="fatherName" name="FatherName" required>
+        </div>
+        <div>
+            <label for="faculty">Факультет:</label>
+            <input type="text" id="faculty" name="Faculty" required>
+        </div>
+        <div>
+            <label for="department">Направление:</label>
+            <input type="text" id="department" name="Department" required>
+        </div>
+        <button type="submit">Добавить</button>
+        <button type="button" onclick="hideNewAuthorForm()">Отмена</button>
+    </form>
+
+    <script>
+        function showNewAuthorForm() {
+            document.getElementById('publishForm').style.display = 'none';
+            document.getElementById('authorForm').style.display = 'block';
+        }
+
+        function hideNewAuthorForm() {
+            document.getElementById('publishForm').style.display = 'block';
+            document.getElementById('authorForm').style.display = 'none';
+        }
+
+        function addNewAuthor() {
+       
+            
+        }
+        function validateForm() {
+            // Получаем все выбранные опции из списка авторов
+            var selectedAuthors = document.getElementById('authors').selectedOptions;
+
+            // Проверяем, что хотя бы один автор был выбран
+            if (selectedAuthors.length === 0) {
+                // Если ни один автор не выбран, отменяем отправку формы
+                alert('Выберите хотя бы одного автора');
+                return false; // Возвращаем false, чтобы форма не отправлялась
+            }
+
+            // Если все авторы выбраны, форма будет отправлена
+            return true;
+        }
+    </script>
+</body>
+</html>
