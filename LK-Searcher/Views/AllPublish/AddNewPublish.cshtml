@@ -66,7 +66,7 @@
     </style>
 </head>
 <body>
-    <form id="publishForm" asp-controller="PersonalArea" asp-action="AddPublish" method="post onsubmit="validateForm()">
+    <form id="publishForm" asp-controller="AllPublish" asp-action="AddPublish" method="post onsubmit="validateForm()">
         <h1>Создание новой записи</h1>
         <div>
             <label for="publishTitle">Название публикации:</label>
@@ -97,7 +97,7 @@
         <button type="submit">Создать запись</button>
     </form>
 
-    <form id="authorForm" class="hidden" asp-action="AddAuthor" asp-controller="PersonalArea" method="post">
+    <form id="authorForm" class="hidden" asp-action="AddAuthor" asp-controller="AllPublish" method="post">
         <h1>Добавление нового автора</h1>
         <div>
             <label for="firstName">Имя:</label>
